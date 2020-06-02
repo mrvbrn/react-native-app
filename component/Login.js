@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TextInput, TouchableHighlight, Image, ActivityIndicator } from "react-native";
-
+var buffer = require('buffer')
 
 
 
@@ -8,8 +8,6 @@ export class Login extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            username : "",
-            password : "",
             showProgress:false
         }
     }
@@ -17,6 +15,19 @@ export class Login extends React.Component{
     onLoginPressed = () =>{
         console.log("hello"+this.state.username)
         this.setState({showProgress:true})
+
+        var b = buffer.Buffer('hello')
+        console.log(b.toString('base64'))
+
+
+        fetch("https://api.github.com/search/repositories?q=react")
+        .then((response) => {
+            return response.json();
+        })
+        .then((result) => {
+            console.log(result);
+            this.setState({showProgress:false})
+        });
     }
 
     render(){

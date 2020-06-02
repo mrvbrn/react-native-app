@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "buffer": "^5.6.0",
     "expo": "~37.0.3",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
