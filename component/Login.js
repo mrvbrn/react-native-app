@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, TextInput, TouchableHighlight, Image, ActivityIndicator } from "react-native";
 import * as SecureStore from 'expo-secure-store';
-var buffer = require('buffer')
 
 
 export class Login extends React.Component{
@@ -15,39 +14,15 @@ export class Login extends React.Component{
 
     onLoginPressed = () =>{
         this.setState({showProgress:true})
-
-        var b = new buffer.Buffer(this.state.username + ":" + this.state.password);
-        var encodedAuth = b.toString('base64');
-
-
-
-        fetch("https://api.github.com/user/repo", {
-            headers : {
-                'Authorization': 'Basic '+ encodedAuth
-            }
-        })
-        .then((response) => {
-            if(response.status <= 200 && response.status >300){
-                return response
-            }
-           throw{
-            badCredentials:response.status == 401,
-            unknownError: response.status != 401
-           }
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then((result) => {
-            console.log(result);
-            this.setState({success:true})
-        })
-        .catch((err) => {
-            this.setState(err)
-        })
-        .finally(()=>{
-            this.setState({showProgress:false});
-        })
+        var authservice = require('./Authservice')
+        authservice.login({
+            username:this.state.username,
+            password:this.state.password
+        }, (results) => {
+            this.setState(Object.assign({
+              showProgress:false
+            }, results));
+        });     
     }
 
     render(){
