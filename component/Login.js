@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TextInput, TouchableHighlight, Image, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, TextInput, TouchableHighlight, Image, ActivityIndicator} from "react-native";
 import * as SecureStore from 'expo-secure-store';
 
 
@@ -63,7 +63,9 @@ export class Login extends React.Component{
                 >
                 <Text style={styles.buttonText}>Log In</Text>
               </TouchableHighlight>
+
                 {errorCtrl}
+
               <ActivityIndicator
                 animating={this.state.showProgress}
                 size="large"
@@ -118,6 +120,6 @@ const styles = StyleSheet.create({
     },
     error:{
         color:'red',
-        paddingTop:10
+        paddingTop:10,
     }
 })
